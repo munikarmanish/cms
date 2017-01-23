@@ -34,6 +34,8 @@ DJANGO_APPS = (
 
     # Admin
     'django.contrib.admin',
+    'clients',
+    'communications'
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
