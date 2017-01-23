@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from test_plus.test import TestCase
 
 
@@ -17,3 +18,7 @@ class TestUser(TestCase):
             self.user.get_absolute_url(),
             '/users/testuser/'
         )
+
+    def test_self_supervisor(self):
+        self.user.supervisor = self.user
+        self.assertRaises(ValidationError, self.user.save)

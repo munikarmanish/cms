@@ -2,6 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -23,3 +24,8 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
+
+    def save(self, *args, **kwargs):
+        if self.supervisor == self:
+            raise ValidationError(_("Self supervisor not allowed"))
+        super(User, self).save(*args, **kwargs)
