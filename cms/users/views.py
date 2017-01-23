@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from .forms import UserProfileForm
 from .models import User
 
 
@@ -25,11 +25,8 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-
-    fields = ['name', ]
-
-    # we already imported User in the view code above, remember?
     model = User
+    form_class = UserProfileForm
 
     # send the user back to their own page after a successful update
     def get_success_url(self):
