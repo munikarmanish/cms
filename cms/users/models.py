@@ -16,7 +16,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_('Name'), blank=True, max_length=255)
     supervisor = models.ForeignKey(
-        'self', related_name='subordinate_list', null=True, default=None,
+        'self', related_name='subordinate_list', null=True, default=None, blank=True,
         on_delete=models.SET_NULL, verbose_name=_('Supervisor'))
 
     def __str__(self):
